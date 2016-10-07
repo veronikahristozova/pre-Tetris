@@ -14,6 +14,7 @@
 		96786B481DA7CFFD006FF58D /* DropItView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786B471DA7CFFD006FF58D /* DropItView.swift */; };
 		96786B4A1DA7D042006FF58D /* DropItViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786B491DA7D042006FF58D /* DropItViewController.swift */; };
 		96786B4C1DA7DE05006FF58D /* FallingObjectBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786B4B1DA7DE05006FF58D /* FallingObjectBehavior.swift */; };
+		96786B4E1DA7E90D006FF58D /* NamedBezierPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786B4D1DA7E90D006FF58D /* NamedBezierPathsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		96786B471DA7CFFD006FF58D /* DropItView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropItView.swift; sourceTree = "<group>"; };
 		96786B491DA7D042006FF58D /* DropItViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropItViewController.swift; sourceTree = "<group>"; };
 		96786B4B1DA7DE05006FF58D /* FallingObjectBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FallingObjectBehavior.swift; path = ../FallingObjectBehavior.swift; sourceTree = "<group>"; };
+		96786B4D1DA7E90D006FF58D /* NamedBezierPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamedBezierPathsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				96786B491DA7D042006FF58D /* DropItViewController.swift */,
 				96786B471DA7CFFD006FF58D /* DropItView.swift */,
 				96786B4B1DA7DE05006FF58D /* FallingObjectBehavior.swift */,
+				96786B4D1DA7E90D006FF58D /* NamedBezierPathsView.swift */,
 				96786B381DA7CF6E006FF58D /* Main.storyboard */,
 				96786B461DA7CFAB006FF58D /* Supporting Files */,
 			);
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96786B4A1DA7D042006FF58D /* DropItViewController.swift in Sources */,
+				96786B4E1DA7E90D006FF58D /* NamedBezierPathsView.swift in Sources */,
 				96786B481DA7CFFD006FF58D /* DropItView.swift in Sources */,
 				96786B4C1DA7DE05006FF58D /* FallingObjectBehavior.swift in Sources */,
 				96786B351DA7CF6E006FF58D /* AppDelegate.swift in Sources */,

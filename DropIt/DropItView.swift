@@ -8,18 +8,17 @@
 
 import UIKit
 
-class DropItView: UIView, UIDynamicAnimatorDelegate {
+class DropItView: NamedBezierPathsView, UIDynamicAnimatorDelegate {
     
     private lazy var animator: UIDynamicAnimator = {
         let animator = UIDynamicAnimator(referenceView: self)
         animator.delegate = self
         return animator
     }()
-    func dynamicAnimatorDidPause(_ animator: UIDynamicAnimator) {
-        removeCompletedRow()
-    }
     
     private let dropBehavior = FallingObjectBehavior()
+    
+    private var lastDrop: UIView?
     
     var animating: Bool = false {
         didSet {
@@ -36,6 +35,28 @@ class DropItView: UIView, UIDynamicAnimatorDelegate {
         let size = bounds.size.width / CGFloat(dropsPerRow)
         return CGSize(width: size, height: size)
     }
+    
+    private var attachment: UIAttachmentBehavior? {
+        willSet {
+            if attachment != nil {
+                animator.removeBehavior(attachment!)
+                bezierPaths["Attachment"] = nil
+            }
+        }
+        didSet {
+            if attachment != nil { //[unowned self] in
+                animator.addBehavior(attachment!)
+                attachment!.action = {
+                    if let attachedDrop = self.attachment!.items.first as? UIView {
+                        self.bezierPaths["Attachment"] = UIBezierPath.lineFrom(from: (self.attachment?.anchorPoint)!, to: attachedDrop.center)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
     func addDrop() {
         var frame = CGRect(origin: CGPoint.zero, size: dropSize)
         frame.origin.x = CGFloat.random(max: dropsPerRow)*dropSize.width
@@ -44,6 +65,26 @@ class DropItView: UIView, UIDynamicAnimatorDelegate {
         
         addSubview(drop)
         dropBehavior.addItem(item: drop)
+        lastDrop = drop
+    }
+    
+    func grabDrop(recognizer: UIPanGestureRecognizer) {
+        let gesturePoint = recognizer.location(in: self)
+        switch recognizer.state {
+        case .began:
+            if let dropToAttachTo = lastDrop, dropToAttachTo.superview != nil {
+                attachment = UIAttachmentBehavior(item: dropToAttachTo, attachedToAnchor: gesturePoint)
+            }
+            lastDrop = nil
+        case .changed:
+            attachment?.anchorPoint = gesturePoint
+        default:
+            attachment = nil
+        }
+    }
+    
+    func dynamicAnimatorDidPause(_ animator: UIDynamicAnimator) {
+        removeCompletedRow()
     }
     
     private func removeCompletedRow() {
@@ -74,6 +115,13 @@ class DropItView: UIView, UIDynamicAnimatorDelegate {
             dropBehavior.removeItem(item: drop)
             drop.removeFromSuperview()
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let path = UIBezierPath(ovalIn: CGRect(center: bounds.mid, size: dropSize))
+        dropBehavior.addBarrier(path: path, named: "Middle Barrier")
+        bezierPaths["Middle Barrier"] = path
     }
 }
 
